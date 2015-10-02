@@ -23,8 +23,8 @@ class RequestHandler(WSGIRequestHandler):
 
         if self.server.redirect_static:
             if any(map(self.path.startswith, ['/static/', '/media/'])):
-                return self.write('HTTP/1.1 302 Found\nLocation: http://%s%s' %
-                                  (self.server.uwsgi_host, self.path))
+                return self.write('HTTP/1.1 302 Found\nLocation: http://%s%s\n'
+                                  % (self.server.uwsgi_host, self.path))
 
         setattr(self.server, 'base_environ', {})
         env = WSGIRequestHandler.get_environ(self)
