@@ -68,6 +68,7 @@ def serve_forever(uwsgi_addr, uwsgi_host=None, local_addr='',
           '%s:%s...' % (uwsgi_addr, uwsgi_port, (uwsgi_host or ''),
                         local_addr[0], local_addr[1]))
 
+    TCPServer.allow_reuse_address = True
     s = TCPServer(
         server_address=local_addr,
         RequestHandlerClass=RequestHandler,
@@ -79,6 +80,8 @@ def serve_forever(uwsgi_addr, uwsgi_host=None, local_addr='',
     try:
         s.serve_forever()
     except KeyboardInterrupt:
+        s.shutdown()
+        s.server_close()
         print(' Bye.')
 
 
