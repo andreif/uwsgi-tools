@@ -1,6 +1,6 @@
 from setuptools import setup
 
-v = '1.0'
+v = '1.0.1'
 
 setup(
     name='uwsgi-tools',
