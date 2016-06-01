@@ -31,4 +31,4 @@ def get_host_from_url(url):
     if '//' in url:
         url = url.split('//', 1)[1]
     host, _, url = url.partition('/')
-    return (host, url)
+    return (host, '/' + url)
