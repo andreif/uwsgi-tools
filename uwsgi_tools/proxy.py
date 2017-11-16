@@ -14,7 +14,8 @@ class RequestHandler(WSGIRequestHandler):
         self.close_connection = 1
 
     def do(self):
-        self.log_message(self.requestline.rpartition(' ')[0])
+        self.log_message(self.requestline.rpartition(' ')[0]
+                         .replace('%', '%%'))
 
         if self.server.redirect_static:
             if any(map(self.path.startswith, ['/static/', '/media/'])):
