@@ -2,6 +2,7 @@ import sys
 
 __all__ = [
     'BaseHTTPRequestHandler', 'TCPServer', 'get_content_type',
+    'hex2bytes',
 ]
 
 PY3 = sys.version_info[0] == 3
@@ -20,3 +21,10 @@ def get_content_type(headers):
         return headers.get('content-type')
     else:
         return headers.typeheader
+
+
+def hex2bytes(s):
+    if PY3:
+        return bytes.fromhex(s)
+    else:
+        return s.decode('hex')

@@ -1,9 +1,9 @@
-import sys
+from .compat import hex2bytes
 
 
 def sz(x):
     s = hex(x if isinstance(x, int) else len(x))[2:].rjust(4, '0')
-    s = bytes.fromhex(s) if sys.version_info[0] == 3 else s.decode('hex')
+    s = hex2bytes(s)
     return s[::-1]
 
 
