@@ -1,7 +1,7 @@
 import sys
 
 __all__ = [
-    'BaseHTTPRequestHandler', 'TCPServer', 'get_content_type',
+    'BaseHTTPRequestHandler', 'TCPServer', 'get_content_type', 'urlsplit',
     'hex2bytes',
 ]
 
@@ -11,9 +11,11 @@ PY3 = sys.version_info[0] == 3
 if PY3:
     from http.server import BaseHTTPRequestHandler
     from socketserver import TCPServer
+    from urllib.parse import urlsplit
 else:
     from BaseHTTPServer import BaseHTTPRequestHandler
     from SocketServer import TCPServer
+    from urlparse import urlsplit
 
 
 def get_content_type(headers):
