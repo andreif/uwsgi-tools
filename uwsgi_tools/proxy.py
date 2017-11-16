@@ -1,12 +1,7 @@
 import sys
-if sys.version_info[0] == 3:
-    from socketserver import TCPServer
-    from http.server import BaseHTTPRequestHandler
-else:
-    from SocketServer import TCPServer
-    from BaseHTTPServer import BaseHTTPRequestHandler
 from wsgiref.simple_server import WSGIRequestHandler
 
+from .compat import BaseHTTPRequestHandler, TCPServer, get_content_type
 from .curl import ask_uwsgi
 from .utils import parse_addr
 
@@ -38,9 +33,7 @@ class RequestHandler(WSGIRequestHandler):
             'SERVER_ADDR': self.server.uwsgi_addr,
             'SERVER_NAME': self.server.uwsgi_host,
             'SERVER_PORT': str(self.server.uwsgi_port),
-            'CONTENT_TYPE': (self.headers.get('content-type')
-                             if sys.version_info[0] == 3
-                             else self.headers.typeheader) or '',
+            'CONTENT_TYPE': get_content_type(self.headers) or '',
             'HTTP_HOST': self.server.uwsgi_host,
         })
         env.pop('REMOTE_HOST', 0)
