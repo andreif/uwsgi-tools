@@ -1,4 +1,5 @@
 import socket
+import sys
 from .compat import urlsplit
 from .utils import pack_uwsgi_vars, parse_addr, get_host_from_url
 
@@ -65,7 +66,6 @@ def curl(uwsgi_addr, url, method='GET', body='', timeout=0, headers=(),
 
 def cli(*args):
     import argparse
-    import sys
 
     parser = argparse.ArgumentParser()
 
@@ -97,9 +97,8 @@ def cli(*args):
     print(response)
 
     status = int(response.split(' ', 2)[1])
-    return sys.exit(0 if 200 <= status < 300 else 1)
+    return 200 <= status < 300
 
 
 if __name__ == '__main__':
-    import sys
-    cli(*sys.argv[1:])
+    sys.exit(int(not cli(*sys.argv[1:])))
