@@ -1,4 +1,4 @@
-from .compat import hex2bytes
+from .compat import hex2bytes, urlsplit
 
 
 def sz(x):
@@ -14,21 +14,29 @@ def pack_uwsgi_vars(var):
     return b'\x00' + sz(pk) + b'\x00' + pk
 
 
-def parse_addr(addr, default_port=None):
-    port = default_port
+def parse_addr(addr, default_port=3030):
+    host = None
+    port = None
     if isinstance(addr, str):
         if addr.isdigit():
-            addr, port = '', addr
-        elif ':' in addr:
-            addr, _, port = addr.partition(':')
+            port = addr
+        else:
+            parts = urlsplit('//' + addr)
+            host = parts.hostname
+            port = parts.port
     elif isinstance(addr, (list, tuple, set)):
-        addr, port = addr
-    port = int(port) if port else port
-    return (addr or '127.0.0.1', port)
+        host, port = addr
+    return (host or '127.0.0.1',
+            int(port) if port else default_port)
 
 
 def get_host_from_url(url):
-    if '//' in url:
-        url = url.split('//', 1)[1]
-    host, _, url = url.partition('/')
-    return (host, '/' + url)
+    # TODO: error for https
+    url = url.split('://')[-1]
+
+    if url and url[0] != '/':
+        # TODO: validate hostname
+        host, _, url = url.partition('/')
+        return (host, '/' + url)
+
+    return '', url
