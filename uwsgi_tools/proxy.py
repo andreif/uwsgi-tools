@@ -11,7 +11,7 @@ class RequestHandler(WSGIRequestHandler):
 
     def write(self, s):
         self.wfile.write(s.encode('utf8'))
-        self.close_connection = 1
+        self.close_connection = True
 
     def do(self):
         self.log_message(self.requestline.rpartition(' ')[0]
@@ -73,10 +73,11 @@ def serve_forever(uwsgi_addr, uwsgi_host=None, local_addr='',
     s.redirect_static = redirect_static
     try:
         s.serve_forever()
-    except KeyboardInterrupt:
+    except (KeyboardInterrupt, SystemExit):
+        print(' Bye.')
+    finally:
         s.shutdown()
         s.server_close()
-        print(' Bye.')
 
 
 def cli(*args):
