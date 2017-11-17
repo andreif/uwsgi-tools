@@ -64,7 +64,7 @@ def serve_forever(uwsgi_addr, uwsgi_host=None, local_addr='',
 
     TCPServer.allow_reuse_address = True
     s = TCPServer(
-        server_address=local_addr,
+        server_address=parse_addr(local_addr),
         RequestHandlerClass=RequestHandler,
     )
     s.uwsgi_addr = uwsgi_addr
