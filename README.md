@@ -7,14 +7,23 @@ Usage:
 
 ```
 $ uwsgi_curl -h
-usage: uwsgi_curl [-h] uwsgi_addr [url]
+usage: uwsgi_curl [-h] [-X METHOD] [-H HEADERS] [-d DATA] [-t TIMEOUT] [--udp]
+                  uwsgi_addr [url]
 
 positional arguments:
-  uwsgi_addr  Remote address of uWSGI server
-  url         Request URI optionally containing hostname
+  uwsgi_addr            Remote address of uWSGI server
+  url                   Request URI optionally containing hostname
 
 optional arguments:
-  -h, --help  show this help message and exit
+  -h, --help            show this help message and exit
+  -X METHOD, --method METHOD
+                        Request method. Default: GET
+  -H HEADERS, --header HEADERS
+                        Request header. It can be used multiple times
+  -d DATA, --data DATA  Request body
+  -t TIMEOUT, --timeout TIMEOUT
+                        Socket timeout
+  --udp                 Use UDP instead of TCP
 ```
 
 Example:
