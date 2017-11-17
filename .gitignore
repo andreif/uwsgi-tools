@@ -1,5 +1,6 @@
 *.egg-info
 /dist/
+/build/
 .coverage
 .coverage.*
 .tox

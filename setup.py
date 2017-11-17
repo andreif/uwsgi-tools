@@ -1,14 +1,14 @@
 from setuptools import setup
 
-v = '1.0.3'
+version = '1.0.3'
 
 setup(
     name='uwsgi-tools',
-    version=v,
+    version=version,
     author='Andrei Fokau',
     author_email='andrei@5monkeys.se',
     url='https://github.com/andreif/uwsgi-tools',
-    download_url='https://github.com/andreif/uwsgi-tools/tarball/%s' % v,
+    download_url='https://github.com/andreif/uwsgi-tools/tarball/%s' % version,
     license='MIT',
     description='uwsgi tools: curl and reverse proxy',
     long_description='''
