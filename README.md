@@ -1,5 +1,10 @@
 # uwsgi tools
 
+[![Build Status](https://travis-ci.org/andreif/uwsgi-tools.svg?branch=master)](https://travis-ci.org/andreif/uwsgi-tools)
+[![Coverage Status](https://coveralls.io/repos/github/andreif/uwsgi-tools/badge.svg?branch=master)](https://coveralls.io/github/andreif/uwsgi-tools)
+[![Version](https://img.shields.io/pypi/v/uwsgi-tools.svg)](https://pypi.python.org/pypi/uwsgi-tools/)
+[![Python Versions](https://img.shields.io/pypi/pyversions/uwsgi-tools.svg)](https://pypi.python.org/pypi/uwsgi-tools/)
+
 
 ### uwsgi_curl
 
