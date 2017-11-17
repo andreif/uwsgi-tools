@@ -11,7 +11,7 @@ def ask_uwsgi(uwsgi_addr, var, body='', timeout=0, udp=False):
     else:
         addr = parse_addr(addr=uwsgi_addr)
         s = socket.socket(*socket.getaddrinfo(
-            host=addr[0], port=addr[1], type=sock_type)[0][:2])
+            addr[0], addr[1], 0, sock_type)[0][:2])
 
     if timeout:
         s.settimeout(timeout)
