@@ -97,8 +97,8 @@ def cli(*args):
     print(response)
 
     status = int(response.split(' ', 2)[1])
-    return 200 <= status < 300
+    return not (200 <= status < 300)
 
 
 if __name__ == '__main__':
-    sys.exit(int(not cli(*sys.argv[1:])))
+    sys.exit(cli(*sys.argv[1:]))
