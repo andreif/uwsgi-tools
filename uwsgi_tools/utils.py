@@ -1,17 +1,18 @@
-from .compat import hex2bytes, urlsplit
-
-
-def sz(x):
-    s = hex(x if isinstance(x, int) else len(x))[2:].rjust(4, '0')
-    s = hex2bytes(s)
-    return s[::-1]
+from .compat import struct2bytes, urlsplit
+from .uwsgi_structs import UwsgiPacketHeader, UwsgiVar
 
 
 def pack_uwsgi_vars(var):
-    pk = b''
-    for k, v in var.items() if hasattr(var, 'items') else var:
-        pk += sz(k) + k.encode('utf8') + sz(v) + v.encode('utf8')
-    return b'\x00' + sz(pk) + b'\x00' + pk
+    encoded_vars = [
+        (k.encode('utf-8'), v.encode('utf-8'))
+        for k, v in var.items()
+    ]
+    packed_vars = b''.join(
+        struct2bytes(UwsgiVar(len(k), k, len(v), v))
+        for k, v in encoded_vars
+    )
+    packet_header = struct2bytes(UwsgiPacketHeader(0, len(packed_vars), 0))
+    return packet_header + packed_vars
 
 
 def parse_addr(addr, default_port=3030):

@@ -2,7 +2,7 @@ import sys
 
 __all__ = [
     'BaseHTTPRequestHandler', 'TCPServer', 'get_content_type', 'urlsplit',
-    'hex2bytes',
+    'struct2bytes',
 ]
 
 PY3 = sys.version_info[0] == 3
@@ -25,8 +25,8 @@ def get_content_type(headers):
         return headers.typeheader
 
 
-def hex2bytes(s):
+def struct2bytes(s):
     if PY3:
-        return bytes.fromhex(s)
+        return bytes(s)
     else:
-        return s.decode('hex')
+        return bytes(bytearray(s))
