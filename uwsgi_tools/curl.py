@@ -55,7 +55,7 @@ def curl(uwsgi_addr, url, method='GET', body='', timeout=0, headers=(),
     }
     for header in headers or ():
         key, _, value = header.partition(':')
-        var['HTTP_' + key.strip().upper()] = value.strip()
+        var['HTTP_' + key.strip().upper().replace('-', '_')] = value.strip()
     var['SERVER_NAME'] = var['HTTP_HOST']
     if port:
         var['SERVER_PORT'] = str(port)
