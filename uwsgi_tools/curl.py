@@ -1,3 +1,4 @@
+# coding=utf-8
 import socket
 import sys
 from .compat import urlsplit
@@ -94,6 +95,10 @@ def cli(*args):
     response = curl(uwsgi_addr=args.uwsgi_addr[0], method=args.method,
                     url=args.url, body=args.data, timeout=args.timeout,
                     headers=args.headers, udp=args.udp)
+
+    if sys.version_info < (3,):
+        response = response.encode('utf-8')
+
     print(response)
 
     status = int(response.split(' ', 2)[1])
